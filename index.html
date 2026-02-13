@@ -16,11 +16,9 @@
     --text: #e8e6e1;
     --muted: #8a8a9a;
     --accent: #7c6df5;
-    --accent-glow: rgba(124, 109, 245, 0.15);
     --green: #4ade80;
     --red: #f87171;
     --gold: #fbbf24;
-    --blue: #60a5fa;
   }
 
   body {
@@ -133,6 +131,12 @@
     margin-right: 0.3em;
   }
 
+  .section-intro {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
   /* Chat bubbles */
   .chat {
     display: flex;
@@ -148,7 +152,6 @@
     font-size: 0.95rem;
     line-height: 1.5;
     position: relative;
-    animation: fadeUp 0.4s ease both;
   }
 
   .bubble.will {
@@ -164,6 +167,17 @@
     border-bottom-left-radius: 0.3rem;
   }
 
+  .bubble.narrator {
+    align-self: center;
+    background: transparent;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+    max-width: 90%;
+    text-align: center;
+  }
+
   .bubble .name {
     font-size: 0.7rem;
     font-weight: 600;
@@ -173,9 +187,22 @@
     opacity: 0.7;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* Divider */
+  .scene-break {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .scene-break::before, .scene-break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
   }
 
   /* Grammar game */
@@ -206,10 +233,6 @@
     font-weight: 700;
     margin: 1rem 0;
     min-height: 3.5rem;
-  }
-
-  .word-display .suffix {
-    color: var(--accent);
   }
 
   .btn-row {
@@ -370,6 +393,7 @@
     color: var(--muted);
     font-size: 0.9rem;
     display: none;
+    margin-top: 0.5rem;
   }
 
   .fact-card.open p {
@@ -386,7 +410,7 @@
     transform: rotate(45deg);
   }
 
-  /* Cleverer-o-meter */
+  /* Cleverer-o-metre */
   .meter-section {
     text-align: center;
     margin: 3rem 0;
@@ -404,7 +428,6 @@
     background: var(--card);
     border-radius: 6px;
     overflow: hidden;
-    position: relative;
   }
 
   .meter-fill {
@@ -430,32 +453,65 @@
     margin-top: 1rem;
   }
 
-  /* Holly quote */
-  .holly-quote {
+  /* Callout card */
+  .callout {
     background: var(--surface);
     border-radius: 1rem;
     padding: 2rem;
     margin: 2rem 0;
     text-align: center;
-    border: 1px solid rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(255,255,255,0.06);
   }
 
-  .holly-quote .emoji {
+  .callout .emoji {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
   }
 
-  .holly-quote blockquote {
+  .callout blockquote {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
     font-style: italic;
     margin: 0.5rem 0;
   }
 
-  .holly-quote cite {
+  .callout cite {
     font-size: 0.85rem;
     color: var(--muted);
     font-style: normal;
+  }
+
+  /* The Moral */
+  .moral {
+    background: var(--surface);
+    border: 1px solid rgba(124, 109, 245, 0.15);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .moral h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .moral ol {
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-left: 1.2rem;
+  }
+
+  .moral ol li {
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .moral ol li strong {
+    color: var(--text);
   }
 
   /* Footer */
@@ -493,14 +549,14 @@
 <div class="hero">
   <div class="date">Friday 13th February 2026</div>
   <h1>Clever<span class="er">er</span></h1>
-  <div class="subtitle">A linguistic emergency, a bot exposé, and The Issue</div>
+  <div class="subtitle">A workplace chat that escalated into a grammar crisis, a bot exposé, and a Turing test nobody asked for</div>
   <div class="scroll-hint">↓ scroll for the full saga</div>
 </div>
 
-<!-- ACT I: THE CONVERSATION -->
+<!-- ACT I: THE SETUP -->
 <section>
-  <h2><span class="num">I.</span> The Conversation</h2>
-  <p style="color: var(--muted); margin-bottom: 1rem;">What started as a Friday 13th greeting escalated into a grammar crisis, a cable mystery, and a full-blown Turing test.</p>
+  <h2><span class="num">I.</span> The Setup</h2>
+  <p class="section-intro">It's Friday 13th. Will opens with what appears to be a very stupid question.</p>
 
   <div class="chat">
     <div class="bubble will">
@@ -519,19 +575,30 @@
       <div class="name">Chloé</div>
       Ahhhhhh, well remembered! I forgot about my very gullible day 😂
     </div>
+    <div class="bubble narrator">
+      For context: there was once a viral rumour that "this year Halloween falls on a Friday 13th for the first time ever." Chloé believed it. Halloween is on the 31st of October. It is always on the 31st of October. It can never fall on the 13th.
+    </div>
   </div>
 
-  <div class="holly-quote">
-    <div class="emoji">🔧</div>
-    <blockquote>"The Issue"</blockquote>
-    <cite>— Holly's official name for the work situation, and honestly we're all using it now</cite>
-  </div>
+  <div class="scene-break">meanwhile, at work</div>
 
   <div class="chat">
     <div class="bubble will">
       <div class="name">Will</div>
       Well I'm not that much cleverer — the cable I thought was snagged isn't even coming from our house. It was a splicing problem in the box.
     </div>
+    <div class="bubble narrator">
+      He said it. He said the word. And nothing would be the same again.
+    </div>
+  </div>
+</section>
+
+<!-- ACT II: THE INCIDENT -->
+<section>
+  <h2><span class="num">II.</span> The Incident</h2>
+  <p class="section-intro">In which a perfectly good English word is questioned, a man panics, and a robot is summoned to settle it.</p>
+
+  <div class="chat">
     <div class="bubble chloe">
       <div class="name">Chloé</div>
       Cleverer, didn't think that would be proper English 🤔
@@ -540,10 +607,28 @@
       <div class="name">Will</div>
       Cleverer is perfectly proper English.
     </div>
+    <div class="bubble narrator">
+      Will knew he was right. But knowing you're right and proving you're right are different things. So he did what any modern professional would do.
+    </div>
+    <div class="bubble narrator">
+      He asked ChatGPT.
+    </div>
     <div class="bubble will">
       <div class="name">Will</div>
       Why it's correct: "Clever" is a two-syllable adjective ending in -er, and in standard British English it commonly takes the comparative ending -er: clever → cleverer → cleverest. That follows the normal pattern: small → smaller, happy → happier, narrow → narrower.
     </div>
+    <div class="bubble narrator">
+      He pasted this directly into the work chat. With a straight face. Like he'd just thought of it.
+    </div>
+  </div>
+</section>
+
+<!-- ACT III: THE EXPOSURE -->
+<section>
+  <h2><span class="num">III.</span> The Exposure</h2>
+  <p class="section-intro">In which honesty arrives late, and Chloé delivers the kill shot.</p>
+
+  <div class="chat">
     <div class="bubble will">
       <div class="name">Will</div>
       That was ChatGPT by the way (not Claude for once) 🤫
@@ -552,32 +637,54 @@
       <div class="name">Chloé</div>
       Sounds like something a bot would say… still doesn't sound right 🤖
     </div>
+    <div class="bubble will">
+      <div class="name">Will</div>
+      Cleverer was my own word — the bot was the mansplaining
+    </div>
+    <div class="bubble chloe">
+      <div class="name">Chloé</div>
+      The bot's response is what I thought sounded like a bot response
+    </div>
+    <div class="bubble narrator">
+      Reader, it did sound like a bot response. Because it was a bot response. The system works.
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="emoji">⚖️</div>
+    <blockquote>The Verdict</blockquote>
+    <cite>"Cleverer" — perfectly valid English, correctly used by a human.<br>
+    The explanation — correctly identified as robot waffle by a human.<br>
+    Everyone was right. Nobody won.</cite>
   </div>
 </section>
 
-<!-- ACT II: THE GRAMMAR GAME -->
+<!-- INTERLUDE: THE ISSUE -->
 <section>
-  <h2><span class="num">II.</span> The Cleverer Game</h2>
-  <p style="color: var(--muted); margin-bottom: 1rem;">So was Chloé right to be suspicious? Test your own grammatical instincts.</p>
+  <div class="callout" style="border-color: rgba(251, 191, 36, 0.15);">
+    <div class="emoji">🔧</div>
+    <blockquote>"The Issue"</blockquote>
+    <cite>— Holly's official name for the work situation.<br>We've all adopted it. It requires no further explanation.<br>Ben is dealing with it. Do not bother Ben.</cite>
+  </div>
+</section>
+
+<!-- ACT IV: THE GAMES -->
+<section>
+  <h2><span class="num">IV.</span> Test Yourself</h2>
+  <p class="section-intro">Two games. One for grammar. One for bot detection. Both inspired by the events of this Friday 13th.</p>
 
   <div class="grammar-game">
     <h3>-er or more?</h3>
-    <p>Which comparative form is correct in standard British English?</p>
+    <p>Pick the standard British English comparative. Chloé's watching.</p>
     <div class="word-display" id="grammarWord">clever</div>
     <div class="btn-row" id="grammarBtns"></div>
     <div class="game-feedback" id="grammarFeedback"></div>
     <div class="score-display" id="grammarScore"></div>
   </div>
-</section>
-
-<!-- ACT III: BOT OR NOT -->
-<section>
-  <h2><span class="num">III.</span> Bot or Not?</h2>
-  <p style="color: var(--muted); margin-bottom: 1rem;">Chloé clocked Will's ChatGPT assist instantly. But can you tell the difference?</p>
 
   <div class="bot-game">
     <h3>🤖 Human or Machine?</h3>
-    <p>Read the explanation. Was it written by a human or an AI?</p>
+    <p>Chloé spotted the bot instantly. Can you?</p>
     <div class="bot-quote" id="botQuote"></div>
     <div class="bot-btn-row" id="botBtns">
       <button class="bot-btn human-btn" onclick="botAnswer('human')">👤 Human</button>
@@ -588,10 +695,10 @@
   </div>
 </section>
 
-<!-- ACT IV: FRIDAY 13TH FACTS -->
+<!-- ACT V: FRIDAY 13TH -->
 <section>
-  <h2><span class="num">IV.</span> Friday 13th: Actually Lucky?</h2>
-  <p style="color: var(--muted); margin-bottom: 1rem;">Chloé was right — the original meaning was about positive magical luck. Here's the evidence.</p>
+  <h2><span class="num">V.</span> Friday 13th: Actually Lucky?</h2>
+  <p class="section-intro">Chloé's original point stands — the true meaning was positive magical luck. Here's the evidence.</p>
 
   <div class="fact-card" onclick="this.classList.toggle('open')">
     <h4>🌙 13 was sacred <span class="toggle">+</span></h4>
@@ -600,7 +707,7 @@
 
   <div class="fact-card" onclick="this.classList.toggle('open')">
     <h4>🇮🇹 Italy loves it <span class="toggle">+</span></h4>
-    <p>In Italian culture, 13 is actually a lucky number. The expression "fare tredici" (to make thirteen) means to hit the jackpot. It's Friday 17th they worry about.</p>
+    <p>In Italian culture, 13 is actually a lucky number. The expression "fare tredici" (to make thirteen) means to hit the jackpot. It's Friday 17th they worry about instead.</p>
   </div>
 
   <div class="fact-card" onclick="this.classList.toggle('open')">
@@ -619,10 +726,10 @@
   </div>
 </section>
 
-<!-- CLEVERER-O-METER -->
+<!-- CLEVERER-O-METRE -->
 <section class="meter-section">
-  <h2>The Cleverer-o-Meter</h2>
-  <p style="color: var(--muted); margin-bottom: 0.5rem;">Based on your game performance today…</p>
+  <h2>The Cleverer-o-Metre</h2>
+  <p style="color: var(--muted); margin-bottom: 0.5rem;">Your combined performance across both games…</p>
   <div class="meter">
     <div class="meter-bar">
       <div class="meter-fill" id="meterFill"></div>
@@ -636,17 +743,30 @@
   <div class="meter-verdict" id="meterVerdict">Play the games first ↑</div>
 </section>
 
+<!-- THE MORAL -->
+<section>
+  <div class="moral">
+    <h3>What We Learned Today</h3>
+    <ol>
+      <li><strong>"Cleverer" is proper English.</strong> It always was. It always will be. Doesn't matter if it sounds funny.</li>
+      <li><strong>Humans can always spot the bot.</strong> Chloé didn't even need to think about it. "Sounds like something a bot would say." Because it was.</li>
+      <li><strong>Halloween cannot fall on Friday 13th.</strong> This should not need saying. And yet.</li>
+      <li><strong>Don't bother Ben.</strong> He's dealing with The Issue.</li>
+    </ol>
+  </div>
+</section>
+
 <footer>
-  <p>Built on Friday 13th, because someone had to settle the "cleverer" debate once and for all.</p>
+  <p>A Friday 13th production. No bots were consulted in the writing of this website.</p>
   <div class="made-by">made by <span class="bot-label">a bot</span> · sounds like something a bot would say</div>
 </footer>
 
 <script>
 // Grammar Game
 const grammarQs = [
-  { word: 'clever', options: ['cleverer', 'more clever'], answer: 'cleverer', note: 'Two syllables ending in -er → takes -er. Chloé was wrong, Will (well, ChatGPT) was right.' },
+  { word: 'clever', options: ['cleverer', 'more clever'], answer: 'cleverer', note: 'Two syllables ending in -er → takes -er. Will was right all along. He just didn\'t need ChatGPT to prove it.' },
   { word: 'simple', options: ['simpler', 'more simple'], answer: 'simpler', note: 'Two syllables ending in -le → takes -er. Same pattern as clever.' },
-  { word: 'beautiful', options: ['beautifuller', 'more beautiful'], answer: 'more beautiful', note: 'Three+ syllables → always "more". Nobody says beautifuller. Nobody.' },
+  { word: 'beautiful', options: ['beautifuller', 'more beautiful'], answer: 'more beautiful', note: 'Three+ syllables → always "more". Nobody says beautifuller. Not even ChatGPT.' },
   { word: 'narrow', options: ['narrower', 'more narrow'], answer: 'narrower', note: 'Two syllables ending in -ow → takes -er. Narrower, shallower, mellower.' },
   { word: 'fun', options: ['funner', 'more fun'], answer: 'more fun', note: 'Trick question! "Fun" was traditionally a noun, so "more fun" is standard. "Funner" is gaining ground but your English teacher would frown.' },
   { word: 'gentle', options: ['gentler', 'more gentle'], answer: 'gentler', note: 'Two syllables ending in -le → takes -er. Gentle → gentler → gentlest.' },
@@ -659,24 +779,24 @@ let gIdx = 0, gCorrect = 0, gTotal = 0;
 function loadGrammarQ() {
   if (gIdx >= grammarQs.length) {
     document.getElementById('grammarWord').innerHTML = '🎓 Done!';
-    document.getElementById('grammarBtns').innerHTML = `<button class="btn" onclick="resetGrammar()">Play again</button>`;
-    document.getElementById('grammarFeedback').textContent = `You got ${gCorrect}/${gTotal}. ${gCorrect >= 6 ? 'Cleverer than most!' : gCorrect >= 4 ? 'More clever than you think.' : 'Chloé would approve.'}`;
+    document.getElementById('grammarBtns').innerHTML = '<button class="btn" onclick="resetGrammar()">Play again</button>';
+    document.getElementById('grammarFeedback').textContent = 'You got ' + gCorrect + '/' + gTotal + '. ' + (gCorrect >= 6 ? 'Cleverer than most!' : gCorrect >= 4 ? 'More clever than you think.' : 'Chloé would approve of your suspicion.');
     updateMeter();
     return;
   }
   const q = grammarQs[gIdx];
   document.getElementById('grammarWord').innerHTML = q.word;
-  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
-  document.getElementById('grammarBtns').innerHTML = shuffled.map(o =>
-    `<button class="btn" onclick="grammarAnswer(this, '${o}')">${o}</button>`
-  ).join('');
+  const shuffled = [...q.options].sort(function() { return Math.random() - 0.5; });
+  document.getElementById('grammarBtns').innerHTML = shuffled.map(function(o) {
+    return '<button class="btn" onclick="grammarAnswer(this, \'' + o + '\')">' + o + '</button>';
+  }).join('');
   document.getElementById('grammarFeedback').textContent = '';
 }
 
 function grammarAnswer(btn, choice) {
   const q = grammarQs[gIdx];
   const btns = document.querySelectorAll('#grammarBtns .btn');
-  btns.forEach(b => {
+  btns.forEach(function(b) {
     b.disabled = true;
     if (b.textContent === q.answer) b.classList.add('correct');
     if (b.textContent === choice && choice !== q.answer) b.classList.add('wrong');
@@ -684,9 +804,9 @@ function grammarAnswer(btn, choice) {
   if (choice === q.answer) gCorrect++;
   gTotal++;
   document.getElementById('grammarFeedback').textContent = q.note;
-  document.getElementById('grammarScore').textContent = `${gCorrect}/${gTotal} correct`;
+  document.getElementById('grammarScore').textContent = gCorrect + '/' + gTotal + ' correct';
   updateMeter();
-  setTimeout(() => { gIdx++; loadGrammarQ(); }, 2800);
+  setTimeout(function() { gIdx++; loadGrammarQ(); }, 2800);
 }
 
 function resetGrammar() {
@@ -699,12 +819,12 @@ loadGrammarQ();
 
 // Bot or Not
 const botQs = [
-  { text: '"Clever" is a two-syllable adjective ending in -er, and in standard British English it commonly takes the comparative ending -er: clever → cleverer → cleverest. That follows the normal pattern: small → smaller, happy → happier, narrow → narrower.', isBot: true, source: 'ChatGPT, deployed by Will to mansplain on his behalf' },
-  { text: 'Look, "cleverer" sounds weird but it\'s right. English is just like that sometimes. Same reason "funner" makes people twitch even though everyone says it.', isBot: false, source: 'A human who\'s had this argument before' },
-  { text: 'The comparative form of adjectives in English follows systematic morphological rules based on syllable count and phonological structure. Monosyllabic adjectives typically take the -er suffix, while polysyllabic adjectives use "more".', isBot: true, source: 'Claude (who would never be this boring voluntarily)' },
-  { text: 'My mate Dave says "more clever" and he went to Cambridge so I\'m going with that.', isBot: false, source: 'Pub linguistics, which is honestly more fun' },
-  { text: 'The word "cleverer" may initially strike some speakers as unusual due to the repetition of the -er sound, creating a phonological effect known as reduplication that can make the word feel informal or playful.', isBot: true, source: 'An AI that desperately wants you to know it went to university' },
-  { text: 'Doesn\'t matter what the rules say. If it sounds wrong coming out of your mouth, it\'s wrong. Language is vibes.', isBot: false, source: 'Chloé, probably' },
+  { text: '"Clever" is a two-syllable adjective ending in -er, and in standard British English it commonly takes the comparative ending -er: clever → cleverer → cleverest. That follows the normal pattern: small → smaller, happy → happier, narrow → narrower.', isBot: true, source: 'ChatGPT — deployed by Will to mansplain on his behalf. This is the actual message Chloé clocked instantly.' },
+  { text: 'Look, "cleverer" sounds weird but it\'s right. English is just like that sometimes. Same reason "funner" makes people twitch even though everyone says it.', isBot: false, source: 'A human who\'s had this argument at the pub before.' },
+  { text: 'The comparative form of adjectives in English follows systematic morphological rules based on syllable count and phonological structure. Monosyllabic adjectives typically take the -er suffix, while polysyllabic adjectives use the periphrastic "more".', isBot: true, source: 'Claude, trying to sound cleverer than ChatGPT.' },
+  { text: 'My mate Dave says "more clever" and he went to Cambridge so I\'m going with that.', isBot: false, source: 'Pub linguistics — honestly more fun than morphological rules.' },
+  { text: 'The word "cleverer" may initially strike some speakers as unusual due to the repetition of the -er sound, creating a phonological effect known as reduplication that can make the word feel informal or playful despite being grammatically standard.', isBot: true, source: 'An AI that desperately wants you to know it went to university.' },
+  { text: 'Doesn\'t matter what the rules say. If it sounds wrong coming out of your mouth, it\'s wrong. Language is vibes.', isBot: false, source: 'Chloé, basically. And she\'s got a point.' },
 ];
 
 let bIdx = 0, bCorrect = 0, bTotal = 0;
@@ -712,16 +832,13 @@ let bIdx = 0, bCorrect = 0, bTotal = 0;
 function loadBotQ() {
   if (bIdx >= botQs.length) {
     document.getElementById('botQuote').textContent = '🏁 All done!';
-    document.getElementById('botBtns').innerHTML = `<button class="bot-btn human-btn" onclick="resetBot()">Play again</button>`;
-    document.getElementById('botResult').textContent = `You identified ${bCorrect}/${bTotal} correctly. ${bCorrect >= 5 ? 'You\'d have caught Will out instantly.' : bCorrect >= 3 ? 'Chloé-level instincts.' : 'The bots have fooled you.'}`;
+    document.getElementById('botBtns').innerHTML = '<button class="bot-btn human-btn" onclick="resetBot()">Play again</button>';
+    document.getElementById('botResult').textContent = 'You identified ' + bCorrect + '/' + bTotal + ' correctly. ' + (bCorrect >= 5 ? 'Chloé-level instincts. The bots can\'t fool you.' : bCorrect >= 3 ? 'Not bad. You\'d have caught Will eventually.' : 'The bots have won. Will got away with it.');
     updateMeter();
     return;
   }
   document.getElementById('botQuote').textContent = botQs[bIdx].text;
-  document.getElementById('botBtns').innerHTML = `
-    <button class="bot-btn human-btn" onclick="botAnswer('human')">👤 Human</button>
-    <button class="bot-btn bot-btn-choice" onclick="botAnswer('bot')">🤖 Bot</button>
-  `;
+  document.getElementById('botBtns').innerHTML = '<button class="bot-btn human-btn" onclick="botAnswer(\'human\')">👤 Human</button> <button class="bot-btn bot-btn-choice" onclick="botAnswer(\'bot\')">🤖 Bot</button>';
   document.getElementById('botResult').textContent = '';
 }
 
@@ -730,11 +847,11 @@ function botAnswer(choice) {
   const correct = (choice === 'bot') === q.isBot;
   if (correct) bCorrect++;
   bTotal++;
-  document.getElementById('botResult').innerHTML = `${correct ? '✅ Correct!' : '❌ Nope!'} — <em>${q.source}</em>`;
-  document.getElementById('botScore').textContent = `${bCorrect}/${bTotal} correct`;
+  document.getElementById('botResult').innerHTML = (correct ? '✅ Correct!' : '❌ Nope!') + ' — <em>' + q.source + '</em>';
+  document.getElementById('botScore').textContent = bCorrect + '/' + bTotal + ' correct';
   document.getElementById('botBtns').innerHTML = '';
   updateMeter();
-  setTimeout(() => { bIdx++; loadBotQ(); }, 2500);
+  setTimeout(function() { bIdx++; loadBotQ(); }, 3000);
 }
 
 function resetBot() {
@@ -745,7 +862,7 @@ function resetBot() {
 
 loadBotQ();
 
-// Meter
+// Metre
 function updateMeter() {
   const total = gTotal + bTotal;
   if (total === 0) return;
@@ -756,21 +873,6 @@ function updateMeter() {
   else if (pct >= 50) v.textContent = 'Cleverer 💪';
   else v.textContent = 'More clever (allegedly)';
 }
-
-// Animate chat bubbles on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.animationDelay = (e.target.dataset.delay || 0) + 's';
-      e.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.bubble').forEach((b, i) => {
-  b.dataset.delay = i * 0.15;
-  observer.observe(b);
-});
 </script>
 
 </body>
