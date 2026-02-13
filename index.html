@@ -685,6 +685,7 @@ function grammarAnswer(btn, choice) {
   gTotal++;
   document.getElementById('grammarFeedback').textContent = q.note;
   document.getElementById('grammarScore').textContent = `${gCorrect}/${gTotal} correct`;
+  updateMeter();
   setTimeout(() => { gIdx++; loadGrammarQ(); }, 2800);
 }
 
@@ -732,6 +733,7 @@ function botAnswer(choice) {
   document.getElementById('botResult').innerHTML = `${correct ? '✅ Correct!' : '❌ Nope!'} — <em>${q.source}</em>`;
   document.getElementById('botScore').textContent = `${bCorrect}/${bTotal} correct`;
   document.getElementById('botBtns').innerHTML = '';
+  updateMeter();
   setTimeout(() => { bIdx++; loadBotQ(); }, 2500);
 }
 
