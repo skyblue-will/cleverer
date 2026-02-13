@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleverer — A Friday 13th Linguistic Emergency</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a25;
+    --text: #e8e6e1;
+    --muted: #8a8a9a;
+    --accent: #7c6df5;
+    --accent-glow: rgba(124, 109, 245, 0.15);
+    --green: #4ade80;
+    --red: #f87171;
+    --gold: #fbbf24;
+    --blue: #60a5fa;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '13';
+    position: absolute;
+    font-size: clamp(15rem, 40vw, 35rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: rgba(124, 109, 245, 0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero h1 .er {
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero h1 .er::after {
+    content: '';
+    position: absolute;
+    bottom: 0.1em;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .hero .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    animation: bob 2s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Sections */
+  section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  section h2 .num {
+    color: var(--accent);
+    font-size: 0.9em;
+    margin-right: 0.3em;
+  }
+
+  /* Chat bubbles */
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+
+  .bubble {
+    max-width: 85%;
+    padding: 0.85rem 1.1rem;
+    border-radius: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .bubble.will {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 0.3rem;
+  }
+
+  .bubble.chloe {
+    align-self: flex-start;
+    background: var(--card);
+    border-bottom-left-radius: 0.3rem;
+  }
+
+  .bubble .name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    opacity: 0.7;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Grammar game */
+  .grammar-game {
+    background: var(--surface);
+    border: 1px solid rgba(124, 109, 245, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .grammar-game h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .grammar-game p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .word-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    min-height: 3.5rem;
+  }
+
+  .word-display .suffix {
+    color: var(--accent);
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--card);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .btn.correct {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+
+  .btn.wrong {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  .game-feedback {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    min-height: 1.5rem;
+  }
+
+  .score-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+
+  /* Bot or Not */
+  .bot-game {
+    background: var(--surface);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .bot-game h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .bot-game > p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .bot-quote {
+    background: var(--card);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 0.6rem 0.6rem 0;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .bot-btn-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .bot-btn {
+    padding: 0.65rem 1.8rem;
+    border-radius: 0.6rem;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .bot-btn.human-btn {
+    background: var(--green);
+    color: #000;
+  }
+
+  .bot-btn.bot-btn-choice {
+    background: var(--gold);
+    color: #000;
+  }
+
+  .bot-btn:hover { transform: scale(1.05); }
+
+  .bot-result {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    min-height: 1.5rem;
+  }
+
+  .bot-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  /* Friday 13th facts */
+  .fact-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .fact-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .fact-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .fact-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .fact-card.open p {
+    display: block;
+  }
+
+  .fact-card .toggle {
+    margin-left: auto;
+    transition: transform 0.3s;
+    color: var(--muted);
+  }
+
+  .fact-card.open .toggle {
+    transform: rotate(45deg);
+  }
+
+  /* Cleverer-o-meter */
+  .meter-section {
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  .meter {
+    width: 100%;
+    max-width: 500px;
+    margin: 1.5rem auto;
+    position: relative;
+  }
+
+  .meter-bar {
+    height: 12px;
+    background: var(--card);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--green));
+    border-radius: 6px;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .meter-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .meter-verdict {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+  }
+
+  /* Holly quote */
+  .holly-quote {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+    border: 1px solid rgba(251, 191, 36, 0.1);
+  }
+
+  .holly-quote .emoji {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .holly-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin: 0.5rem 0;
+  }
+
+  .holly-quote cite {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  footer .made-by {
+    margin-top: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+  }
+
+  footer .made-by .bot-label {
+    color: var(--gold);
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .bubble { max-width: 92%; }
+    .btn-row { flex-direction: column; align-items: center; }
+    .bot-btn-row { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="date">Friday 13th February 2026</div>
+  <h1>Clever<span class="er">er</span></h1>
+  <div class="subtitle">A linguistic emergency, a bot exposé, and The Issue</div>
+  <div class="scroll-hint">↓ scroll for the full saga</div>
+</div>
+
+<!-- ACT I: THE CONVERSATION -->
+<section>
+  <h2><span class="num">I.</span> The Conversation</h2>
+  <p style="color: var(--muted); margin-bottom: 1rem;">What started as a Friday 13th greeting escalated into a grammar crisis, a cable mystery, and a full-blown Turing test.</p>
+
+  <div class="chat">
+    <div class="bubble will">
+      <div class="name">Will</div>
+      Is it Halloween? 🎃
+    </div>
+    <div class="bubble chloe">
+      <div class="name">Chloé</div>
+      Unfortunately not, but it's a time people relate to superstition… although the true meaning was positive magical luck!
+    </div>
+    <div class="bubble will">
+      <div class="name">Will</div>
+      This was a reference to our Halloween on Friday 13th Urban Myth 😏
+    </div>
+    <div class="bubble chloe">
+      <div class="name">Chloé</div>
+      Ahhhhhh, well remembered! I forgot about my very gullible day 😂
+    </div>
+  </div>
+
+  <div class="holly-quote">
+    <div class="emoji">🔧</div>
+    <blockquote>"The Issue"</blockquote>
+    <cite>— Holly's official name for the cable situation, and we're all using it now</cite>
+  </div>
+
+  <div class="chat">
+    <div class="bubble will">
+      <div class="name">Will</div>
+      Well I'm not that much cleverer — the cable I thought was snagged isn't even coming from our house. It was a splicing problem in the box.
+    </div>
+    <div class="bubble chloe">
+      <div class="name">Chloé</div>
+      Cleverer, didn't think that would be proper English 🤔
+    </div>
+    <div class="bubble will">
+      <div class="name">Will</div>
+      Cleverer is perfectly proper English. "Clever" is a two-syllable adjective ending in -er, and in standard British English it commonly takes the comparative ending -er: clever → cleverer → cleverest
+    </div>
+    <div class="bubble will">
+      <div class="name">Will</div>
+      That was ChatGPT by the way (not Claude for once)
+    </div>
+    <div class="bubble chloe">
+      <div class="name">Chloé</div>
+      Sounds like something a bot would say… still doesn't sound right 🤖
+    </div>
+  </div>
+</section>
+
+<!-- ACT II: THE GRAMMAR GAME -->
+<section>
+  <h2><span class="num">II.</span> The Cleverer Game</h2>
+  <p style="color: var(--muted); margin-bottom: 1rem;">So was Chloé right to be suspicious? Test your own grammatical instincts.</p>
+
+  <div class="grammar-game">
+    <h3>-er or more?</h3>
+    <p>Which comparative form is correct in standard British English?</p>
+    <div class="word-display" id="grammarWord">clever</div>
+    <div class="btn-row" id="grammarBtns"></div>
+    <div class="game-feedback" id="grammarFeedback"></div>
+    <div class="score-display" id="grammarScore"></div>
+  </div>
+</section>
+
+<!-- ACT III: BOT OR NOT -->
+<section>
+  <h2><span class="num">III.</span> Bot or Not?</h2>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Chloé clocked Will's ChatGPT assist instantly. But can you tell the difference?</p>
+
+  <div class="bot-game">
+    <h3>🤖 Human or Machine?</h3>
+    <p>Read the explanation. Was it written by a human or an AI?</p>
+    <div class="bot-quote" id="botQuote"></div>
+    <div class="bot-btn-row" id="botBtns">
+      <button class="bot-btn human-btn" onclick="botAnswer('human')">👤 Human</button>
+      <button class="bot-btn bot-btn-choice" onclick="botAnswer('bot')">🤖 Bot</button>
+    </div>
+    <div class="bot-result" id="botResult"></div>
+    <div class="bot-score" id="botScore"></div>
+  </div>
+</section>
+
+<!-- ACT IV: FRIDAY 13TH FACTS -->
+<section>
+  <h2><span class="num">IV.</span> Friday 13th: Actually Lucky?</h2>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Chloé was right — the original meaning was about positive magical luck. Here's the evidence.</p>
+
+  <div class="fact-card" onclick="this.classList.toggle('open')">
+    <h4>🌙 13 was sacred <span class="toggle">+</span></h4>
+    <p>In many pre-Christian traditions, 13 was associated with the lunar calendar (13 full moons per year) and femininity. The number was considered powerful, not unlucky. The Norse goddess Freya was associated with Friday — Freya's Day.</p>
+  </div>
+
+  <div class="fact-card" onclick="this.classList.toggle('open')">
+    <h4>🇮🇹 Italy loves it <span class="toggle">+</span></h4>
+    <p>In Italian culture, 13 is actually a lucky number. The expression "fare tredici" (to make thirteen) means to hit the jackpot. It's Friday 17th they worry about.</p>
+  </div>
+
+  <div class="fact-card" onclick="this.classList.toggle('open')">
+    <h4>✈️ Cheaper flights <span class="toggle">+</span></h4>
+    <p>Studies show flights and hotels are measurably cheaper on Friday 13th because superstitious travellers avoid booking. The real luck is in the savings.</p>
+  </div>
+
+  <div class="fact-card" onclick="this.classList.toggle('open')">
+    <h4>📉 Fewer accidents <span class="toggle">+</span></h4>
+    <p>A Dutch study found statistically fewer accidents and fires on Friday 13th, possibly because people are more cautious. The superstition protects you by making you careful.</p>
+  </div>
+
+  <div class="fact-card" onclick="this.classList.toggle('open')">
+    <h4>🎃 The Halloween Myth <span class="toggle">+</span></h4>
+    <p>Will once convinced Chloé that Halloween fell on Friday 13th. She believed it. We don't talk about how long she believed it.</p>
+  </div>
+</section>
+
+<!-- CLEVERER-O-METER -->
+<section class="meter-section">
+  <h2>The Cleverer-o-Meter</h2>
+  <p style="color: var(--muted); margin-bottom: 0.5rem;">Based on your game performance today…</p>
+  <div class="meter">
+    <div class="meter-bar">
+      <div class="meter-fill" id="meterFill"></div>
+    </div>
+    <div class="meter-labels">
+      <span>more clever</span>
+      <span>cleverer</span>
+      <span>cleverest</span>
+    </div>
+  </div>
+  <div class="meter-verdict" id="meterVerdict">Play the games first ↑</div>
+</section>
+
+<footer>
+  <p>Built on Friday 13th, because someone had to settle the "cleverer" debate once and for all.</p>
+  <div class="made-by">made by <span class="bot-label">a bot</span> · sounds like something a bot would say</div>
+</footer>
+
+<script>
+// Grammar Game
+const grammarQs = [
+  { word: 'clever', options: ['cleverer', 'more clever'], answer: 'cleverer', note: 'Two syllables ending in -er → takes -er. Chloé was wrong, Will (well, ChatGPT) was right.' },
+  { word: 'simple', options: ['simpler', 'more simple'], answer: 'simpler', note: 'Two syllables ending in -le → takes -er. Same pattern as clever.' },
+  { word: 'beautiful', options: ['beautifuller', 'more beautiful'], answer: 'more beautiful', note: 'Three+ syllables → always "more". Nobody says beautifuller. Nobody.' },
+  { word: 'narrow', options: ['narrower', 'more narrow'], answer: 'narrower', note: 'Two syllables ending in -ow → takes -er. Narrower, shallower, mellower.' },
+  { word: 'fun', options: ['funner', 'more fun'], answer: 'more fun', note: 'Trick question! "Fun" was traditionally a noun, so "more fun" is standard. "Funner" is gaining ground but your English teacher would frown.' },
+  { word: 'gentle', options: ['gentler', 'more gentle'], answer: 'gentler', note: 'Two syllables ending in -le → takes -er. Gentle → gentler → gentlest.' },
+  { word: 'bizarre', options: ['bizarrer', 'more bizarre'], answer: 'more bizarre', note: 'Two syllables but stressed on the second → "more". You\'d never say bizarrer at a dinner party.' },
+  { word: 'quiet', options: ['quieter', 'more quiet'], answer: 'quieter', note: 'Two syllables ending in -et → takes -er. Both are used, but quieter is standard.' },
+];
+
+let gIdx = 0, gCorrect = 0, gTotal = 0;
+
+function loadGrammarQ() {
+  if (gIdx >= grammarQs.length) {
+    document.getElementById('grammarWord').innerHTML = '🎓 Done!';
+    document.getElementById('grammarBtns').innerHTML = `<button class="btn" onclick="resetGrammar()">Play again</button>`;
+    document.getElementById('grammarFeedback').textContent = `You got ${gCorrect}/${gTotal}. ${gCorrect >= 6 ? 'Cleverer than most!' : gCorrect >= 4 ? 'More clever than you think.' : 'Chloé would approve.'}`;
+    updateMeter();
+    return;
+  }
+  const q = grammarQs[gIdx];
+  document.getElementById('grammarWord').innerHTML = q.word;
+  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+  document.getElementById('grammarBtns').innerHTML = shuffled.map(o =>
+    `<button class="btn" onclick="grammarAnswer(this, '${o}')">${o}</button>`
+  ).join('');
+  document.getElementById('grammarFeedback').textContent = '';
+}
+
+function grammarAnswer(btn, choice) {
+  const q = grammarQs[gIdx];
+  const btns = document.querySelectorAll('#grammarBtns .btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (b.textContent === q.answer) b.classList.add('correct');
+    if (b.textContent === choice && choice !== q.answer) b.classList.add('wrong');
+  });
+  if (choice === q.answer) gCorrect++;
+  gTotal++;
+  document.getElementById('grammarFeedback').textContent = q.note;
+  document.getElementById('grammarScore').textContent = `${gCorrect}/${gTotal} correct`;
+  setTimeout(() => { gIdx++; loadGrammarQ(); }, 2800);
+}
+
+function resetGrammar() {
+  gIdx = 0; gCorrect = 0; gTotal = 0;
+  document.getElementById('grammarScore').textContent = '';
+  loadGrammarQ();
+}
+
+loadGrammarQ();
+
+// Bot or Not
+const botQs = [
+  { text: '"Clever" is a two-syllable adjective ending in -er, and in standard British English it commonly takes the comparative ending -er: clever → cleverer → cleverest. That follows the normal pattern: small → smaller, happy → happier, narrow → narrower.', isBot: true, source: 'ChatGPT, pasted by Will into a work chat like an absolute fraud' },
+  { text: 'Look, "cleverer" sounds weird but it\'s right. English is just like that sometimes. Same reason "funner" makes people twitch even though everyone says it.', isBot: false, source: 'A human who\'s had this argument before' },
+  { text: 'The comparative form of adjectives in English follows systematic morphological rules based on syllable count and phonological structure. Monosyllabic adjectives typically take the -er suffix, while polysyllabic adjectives use "more".', isBot: true, source: 'Claude (who would never be this boring voluntarily)' },
+  { text: 'My mate Dave says "more clever" and he went to Cambridge so I\'m going with that.', isBot: false, source: 'Pub linguistics, which is honestly more fun' },
+  { text: 'The word "cleverer" may initially strike some speakers as unusual due to the repetition of the -er sound, creating a phonological effect known as reduplication that can make the word feel informal or playful.', isBot: true, source: 'An AI that desperately wants you to know it went to university' },
+  { text: 'Doesn\'t matter what the rules say. If it sounds wrong coming out of your mouth, it\'s wrong. Language is vibes.', isBot: false, source: 'Chloé, probably' },
+];
+
+let bIdx = 0, bCorrect = 0, bTotal = 0;
+
+function loadBotQ() {
+  if (bIdx >= botQs.length) {
+    document.getElementById('botQuote').textContent = '🏁 All done!';
+    document.getElementById('botBtns').innerHTML = `<button class="bot-btn human-btn" onclick="resetBot()">Play again</button>`;
+    document.getElementById('botResult').textContent = `You identified ${bCorrect}/${bTotal} correctly. ${bCorrect >= 5 ? 'You\'d have caught Will out instantly.' : bCorrect >= 3 ? 'Chloé-level instincts.' : 'The bots have fooled you.'}`;
+    updateMeter();
+    return;
+  }
+  document.getElementById('botQuote').textContent = botQs[bIdx].text;
+  document.getElementById('botBtns').innerHTML = `
+    <button class="bot-btn human-btn" onclick="botAnswer('human')">👤 Human</button>
+    <button class="bot-btn bot-btn-choice" onclick="botAnswer('bot')">🤖 Bot</button>
+  `;
+  document.getElementById('botResult').textContent = '';
+}
+
+function botAnswer(choice) {
+  const q = botQs[bIdx];
+  const correct = (choice === 'bot') === q.isBot;
+  if (correct) bCorrect++;
+  bTotal++;
+  document.getElementById('botResult').innerHTML = `${correct ? '✅ Correct!' : '❌ Nope!'} — <em>${q.source}</em>`;
+  document.getElementById('botScore').textContent = `${bCorrect}/${bTotal} correct`;
+  document.getElementById('botBtns').innerHTML = '';
+  setTimeout(() => { bIdx++; loadBotQ(); }, 2500);
+}
+
+function resetBot() {
+  bIdx = 0; bCorrect = 0; bTotal = 0;
+  document.getElementById('botScore').textContent = '';
+  loadBotQ();
+}
+
+loadBotQ();
+
+// Meter
+function updateMeter() {
+  const total = gTotal + bTotal;
+  if (total === 0) return;
+  const pct = Math.round(((gCorrect + bCorrect) / total) * 100);
+  document.getElementById('meterFill').style.width = pct + '%';
+  const v = document.getElementById('meterVerdict');
+  if (pct >= 80) v.textContent = 'Cleverest 🏆';
+  else if (pct >= 50) v.textContent = 'Cleverer 💪';
+  else v.textContent = 'More clever (allegedly)';
+}
+
+// Animate chat bubbles on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationDelay = (e.target.dataset.delay || 0) + 's';
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.bubble').forEach((b, i) => {
+  b.dataset.delay = i * 0.15;
+  observer.observe(b);
+});
+</script>
+
+</body>
+</html>
